@@ -49,14 +49,7 @@ protected:
 	virtual void SetupInputComponent() override;
 	
 	// To add mapping context
-	virtual void BeginPlay();
-
-	/** Input handlers for SetDestination action. */
-	void OnInputStarted();
-	void OnSetDestinationTriggered();
-	void OnSetDestinationReleased();
-	void OnTouchTriggered();
-	void OnTouchReleased();
+	virtual void BeginPlay() override;
 
 private:
 	FVector CachedDestination;

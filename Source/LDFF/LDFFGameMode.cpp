@@ -2,7 +2,7 @@
 
 #include "LDFFGameMode.h"
 #include "LDFFPlayerController.h"
-#include "LDFFCharacter.h"
+#include "LDFFPlayerState.h"
 #include "UObject/ConstructorHelpers.h"
 
 ALDFFGameMode::ALDFFGameMode()
@@ -23,4 +23,6 @@ ALDFFGameMode::ALDFFGameMode()
 	{
 		PlayerControllerClass = PlayerControllerBPClass.Class;
 	}
+
+	PlayerStateClass = ALDFFPlayerState::StaticClass();
 }

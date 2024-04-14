@@ -9,12 +9,11 @@
 // Sets default values
 ALDFFTemple::ALDFFTemple()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
-	AbilitySystemComponent = CreateDefaultSubobject<ULDFFAbilitySystemComponent>("AbilitySystemComponent");
-
-	AttributeSet = CreateDefaultSubobject<ULDFFAttributeSet>("AttributeSet");
+	AbilitySystemComponent = CreateDefaultSubobject<ULDFFAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	Mesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 UAbilitySystemComponent* ALDFFTemple::GetAbilitySystemComponent() const

@@ -3,6 +3,7 @@
 
 #include "LDFFPlayerTemple.h"
 
+#include "LDFFAttributeSet.h"
 #include "LDFFPlayerState.h"
 
 
@@ -10,12 +11,12 @@
 ALDFFPlayerTemple::ALDFFPlayerTemple()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	AttributeSet = CreateDefaultSubobject<ULDFFAttributeSet>(TEXT("AttributeSet"));
 }
 
 // Called when the game starts or when spawned
 void ALDFFPlayerTemple::BeginPlay()
 {
-	AttributeSet = GetPlayerState<ALDFFPlayerState>()->GetAttributeSet();
 	Super::BeginPlay();
 }
 

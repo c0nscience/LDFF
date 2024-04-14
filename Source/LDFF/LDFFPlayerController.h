@@ -3,11 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
 #include "Templates/SubclassOf.h"
 #include "GameFramework/PlayerController.h"
 #include "LDFFPlayerController.generated.h"
 
 /** Forward declaration to improve compiling times */
+class UAttributeSet;
 class UNiagaraSystem;
 class UInputMappingContext;
 class UInputAction;
@@ -21,6 +23,7 @@ class ALDFFPlayerController : public APlayerController
 
 public:
 	ALDFFPlayerController();
+	
 
 	/** Time Threshold to know if it was a short press */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
@@ -50,7 +53,7 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay() override;
-
+	
 private:
 	FVector CachedDestination;
 

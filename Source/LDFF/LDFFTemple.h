@@ -7,6 +7,8 @@
 #include "GameFramework/Pawn.h"
 #include "LDFFTemple.generated.h"
 
+struct FOnAttributeChangeData;
+class ULDFFAttributeSet;
 class UAttributeSet;
 
 UCLASS()
@@ -20,8 +22,12 @@ public:
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
-	TObjectPtr<UAttributeSet> GetAttributeSet() const { return AttributeSet; }
+	TObjectPtr<ULDFFAttributeSet> GetAttributeSet() const { return AttributeSet; }
 	
+	void OnHealthChangedInternal(const FOnAttributeChangeData& Data);
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Abilities|Attributes")
+	void OnHealthChanged(float OldValue, float NewValue);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -30,7 +36,7 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
-	TObjectPtr<UAttributeSet> AttributeSet;
+	TObjectPtr<ULDFFAttributeSet> AttributeSet;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	TObjectPtr<UStaticMeshComponent> Mesh;

@@ -3,7 +3,6 @@
 
 #include "LDFFPlayerTemple.h"
 
-#include "LDFFAbilitySystemComponent.h"
 #include "LDFFPlayerState.h"
 
 
@@ -16,9 +15,8 @@ ALDFFPlayerTemple::ALDFFPlayerTemple()
 // Called when the game starts or when spawned
 void ALDFFPlayerTemple::BeginPlay()
 {
-	Super::BeginPlay();
-	
 	AttributeSet = GetPlayerState<ALDFFPlayerState>()->GetAttributeSet();
+	Super::BeginPlay();
 }
 
 // Called every frame

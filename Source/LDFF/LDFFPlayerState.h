@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerState.h"
 #include "LDFFPlayerState.generated.h"
 
+class ULDFFAttributeSet;
 class UAttributeSet;
 /**
  * 
@@ -20,12 +21,12 @@ public:
 	ALDFFPlayerState();
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	TObjectPtr<UAttributeSet> GetAttributeSet() const { return AttributeSet; }
+	TObjectPtr<ULDFFAttributeSet> GetAttributeSet() const { return AttributeSet; }
 
 protected:
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
-	TObjectPtr<UAttributeSet> AttributeSet;
+	TObjectPtr<ULDFFAttributeSet> AttributeSet;
 };

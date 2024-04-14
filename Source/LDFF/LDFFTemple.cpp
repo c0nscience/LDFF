@@ -21,11 +21,21 @@ UAbilitySystemComponent* ALDFFTemple::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
+void ALDFFTemple::OnHealthChangedInternal(const FOnAttributeChangeData& Data)
+{
+	OnHealthChanged(Data.OldValue, Data.NewValue);
+}
+
 // Called when the game starts or when spawned
 void ALDFFTemple::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (IsValid(AbilitySystemComponent))
+	{
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetHealthAttribute())
+		.AddUObject(this, &ALDFFTemple::OnHealthChangedInternal);
+	}
 }
 
 // Called every frame

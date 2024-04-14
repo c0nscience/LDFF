@@ -4,9 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayEffectTypes.h"
 #include "GameFramework/Character.h"
 #include "LDFFAIBaseCharacter.generated.h"
 
+class ULDFFAttributeSet;
+class UGameplayAbility;
 class UAttributeSet;
 
 UCLASS()
@@ -20,7 +23,12 @@ public:
 	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
-	TObjectPtr<UAttributeSet> GetAttributeSet() const { return AttributeSet; }
+	TObjectPtr<ULDFFAttributeSet> GetAttributeSet() const { return AttributeSet; }
+	
+	void OnHealthChangedInternal(const FOnAttributeChangeData& Data);
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Abilities|Attributes")
+	void OnHealthChanged(float OldValue, float NewValue);
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,9 +38,14 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
-	TObjectPtr<UAttributeSet> AttributeSet;
+	TObjectPtr<ULDFFAttributeSet> AttributeSet;
+	
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> Abilities;
+	
+public:
+	virtual void PossessedBy(AController* NewController) override;
 
-public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

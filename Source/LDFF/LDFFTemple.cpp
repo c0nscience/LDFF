@@ -5,6 +5,7 @@
 
 #include "LDFFAbilitySystemComponent.h"
 #include "LDFFAttributeSet.h"
+#include "LDFFPlayerState.h"
 
 // Sets default values
 ALDFFTemple::ALDFFTemple()
@@ -14,6 +15,7 @@ ALDFFTemple::ALDFFTemple()
 	AbilitySystemComponent = CreateDefaultSubobject<ULDFFAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
 }
 
 UAbilitySystemComponent* ALDFFTemple::GetAbilitySystemComponent() const
@@ -24,6 +26,7 @@ UAbilitySystemComponent* ALDFFTemple::GetAbilitySystemComponent() const
 void ALDFFTemple::OnHealthChangedInternal(const FOnAttributeChangeData& Data)
 {
 	OnHealthChanged(Data.OldValue, Data.NewValue);
+	OnHealthChanged_Called.Broadcast(Data.OldValue, Data.NewValue);
 }
 
 // Called when the game starts or when spawned
@@ -36,6 +39,7 @@ void ALDFFTemple::BeginPlay()
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetHealthAttribute())
 		.AddUObject(this, &ALDFFTemple::OnHealthChangedInternal);
 	}
+	
 }
 
 // Called every frame
@@ -51,4 +55,3 @@ void ALDFFTemple::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
-

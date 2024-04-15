@@ -7,10 +7,12 @@
 #include "GameFramework/Pawn.h"
 #include "LDFFTemple.generated.h"
 
+class UGameplayEffect;
 struct FOnAttributeChangeData;
 class ULDFFAttributeSet;
 class UAttributeSet;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChanged, float, OldValue, float, NewValue);
 UCLASS()
 class LDFF_API ALDFFTemple : public APawn, public IAbilitySystemInterface
 {
@@ -20,6 +22,9 @@ public:
 	// Sets default values for this pawn's properties
 	ALDFFTemple();
 
+	UPROPERTY(BlueprintAssignable, Category="Attributes")
+	FOnHealthChanged OnHealthChanged_Called;
+	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
 	TObjectPtr<ULDFFAttributeSet> GetAttributeSet() const { return AttributeSet; }
@@ -41,6 +46,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	TObjectPtr<UStaticMeshComponent> Mesh;
 	
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	TObjectPtr<UGameplayEffect> ManaGainEffect;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -3,6 +3,7 @@
 #include "LDFFPlayerController.h"
 
 #include "AbilitySystemComponent.h"
+#include "LDFFAttributeSet.h"
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
 #include "LDFFPlayerState.h"
@@ -21,6 +22,11 @@ UAbilitySystemComponent* ALDFFPlayerController::GetAbilitySystemComponent() cons
 	return GetPlayerState<ALDFFPlayerState>()->GetAbilitySystemComponent();
 }
 
+void ALDFFPlayerController::OnManaChangedInternal(const FOnAttributeChangeData& Data)
+{
+	OnManaChanged(Data.OldValue, Data.NewValue);
+}
+
 void ALDFFPlayerController::BeginPlay()
 {
 	// Call the base class  
@@ -30,4 +36,8 @@ void ALDFFPlayerController::BeginPlay()
 	{
 		GetAbilitySystemComponent()->GiveAbility(FGameplayAbilitySpec(Ability));
 	}
+
+	const ULDFFAttributeSet* AttributeSet = GetPlayerState<ALDFFPlayerState>()->GetAttributeSet();
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetManaAttribute())
+	.AddUObject(this, &ALDFFPlayerController::OnManaChangedInternal);
 }

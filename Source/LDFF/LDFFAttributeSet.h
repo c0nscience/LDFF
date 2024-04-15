@@ -39,4 +39,12 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Vital Attributes")
 	FGameplayAttributeData MaxMana;
 	ATTRIBUTE_ACCESSORS(ULDFFAttributeSet, MaxMana)
+	
+	UPROPERTY(BlueprintReadOnly, Category="Attributes")
+	FGameplayAttributeData Follower;
+	ATTRIBUTE_ACCESSORS(ULDFFAttributeSet, Follower)
+
+	UPROPERTY(BlueprintReadOnly, Category="Attributes")
+	FGameplayAttributeData MaxFollower;
+	ATTRIBUTE_ACCESSORS(ULDFFAttributeSet, MaxFollower)
 };

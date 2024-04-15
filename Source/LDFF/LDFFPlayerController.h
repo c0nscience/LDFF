@@ -9,6 +9,7 @@
 #include "GameFramework/PlayerController.h"
 #include "LDFFPlayerController.generated.h"
 
+struct FOnAttributeChangeData;
 class UGameplayAbility;
 class ULDFFGameplayAbility;
 class UAttributeSet;
@@ -27,6 +28,11 @@ public:
 	ALDFFPlayerController();
 	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	
+	void OnManaChangedInternal(const FOnAttributeChangeData& Data);
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Abilities|Attributes")
+	void OnManaChanged(float OldValue, float NewValue);
 
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Abilities")

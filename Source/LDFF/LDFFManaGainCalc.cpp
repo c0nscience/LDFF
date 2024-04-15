@@ -30,21 +30,21 @@ ULDFFManaGainCalc::ULDFFManaGainCalc()
 }
 
 void ULDFFManaGainCalc::Execute_Implementation(const FGameplayEffectCustomExecutionParameters& ExecutionParams,
-	FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
+                                               FGameplayEffectCustomExecutionOutput& OutExecutionOutput) const
 {
 	Super::Execute_Implementation(ExecutionParams, OutExecutionOutput);
 
-	FAggregatorEvaluateParameters EvaluateParameters;
+	const FAggregatorEvaluateParameters EvaluateParameters;
 
 	float Followers = 0.0f;
-	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ResourceStatics().FollowerDef, EvaluateParameters, Followers);
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(ResourceStatics().FollowerDef, EvaluateParameters,
+	                                                           Followers);
 
 	UE_LOG(LogTemp, Warning, TEXT("Followers: %f"), Followers);
 	if (Followers > 0.f)
 	{
+		const float ManaGained = 1.5f * Followers;
 		OutExecutionOutput.AddOutputModifier(
-			FGameplayModifierEvaluatedData(ResourceStatics().ManaProperty, EGameplayModOp::Additive, Followers));
+			FGameplayModifierEvaluatedData(ResourceStatics().ManaProperty, EGameplayModOp::Additive, ManaGained));
 	}
 }
-
-

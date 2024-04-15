@@ -47,4 +47,6 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category="Attributes")
 	FGameplayAttributeData MaxFollower;
 	ATTRIBUTE_ACCESSORS(ULDFFAttributeSet, MaxFollower)
+	
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 };

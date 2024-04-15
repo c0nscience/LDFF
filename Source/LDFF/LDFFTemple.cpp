@@ -29,6 +29,12 @@ void ALDFFTemple::OnHealthChangedInternal(const FOnAttributeChangeData& Data)
 	OnHealthChanged_Called.Broadcast(Data.OldValue, Data.NewValue);
 }
 
+void ALDFFTemple::OnFollowerChangedInternal(const FOnAttributeChangeData& Data)
+{
+	OnFollowerChanged(Data.OldValue, Data.NewValue);
+	OnFollowerChanged_Called.Broadcast(Data.OldValue, Data.NewValue);
+}
+
 // Called when the game starts or when spawned
 void ALDFFTemple::BeginPlay()
 {
@@ -38,6 +44,9 @@ void ALDFFTemple::BeginPlay()
 	{
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetHealthAttribute())
 		.AddUObject(this, &ALDFFTemple::OnHealthChangedInternal);
+		
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetFollowerAttribute())
+		.AddUObject(this, &ALDFFTemple::OnFollowerChangedInternal);
 	}
 	
 }

@@ -13,6 +13,9 @@ class ULDFFAttributeSet;
 class UAttributeSet;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChanged, float, OldValue, float, NewValue);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnFollowerChanged, float, OldValue, float, NewValue);
+
 UCLASS()
 class LDFF_API ALDFFTemple : public APawn, public IAbilitySystemInterface
 {
@@ -25,6 +28,9 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="Attributes")
 	FOnHealthChanged OnHealthChanged_Called;
 	
+	UPROPERTY(BlueprintAssignable, Category="Attributes")
+	FOnFollowerChanged OnFollowerChanged_Called;
+	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	
 	TObjectPtr<ULDFFAttributeSet> GetAttributeSet() const { return AttributeSet; }
@@ -33,6 +39,11 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category="Abilities|Attributes")
 	void OnHealthChanged(float OldValue, float NewValue);
+	
+	void OnFollowerChangedInternal(const FOnAttributeChangeData& Data);
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Abilities|Attributes")
+	void OnFollowerChanged(float OldValue, float NewValue);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

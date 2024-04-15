@@ -12,21 +12,23 @@ public class LDFF : ModuleRules
 		{
 			"Core",
 			"CoreUObject",
+			"ApplicationCore",
 			"Engine",
-			"InputCore",
+			"GameplayTags",
+			"GameplayTasks",
+			"GameplayAbilities",
 			"NavigationSystem",
 			"AIModule",
 			"Niagara",
-			"EnhancedInput",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
 		{
-			"GameplayAbilities",
-			"GameplayTags",
-			"GameplayTasks",
+			"InputCore",
+			"UMG",
 			"CommonUI",
 			"CommonInput",
+			"EnhancedInput",
 		});
 	}
 }
